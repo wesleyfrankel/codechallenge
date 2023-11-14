@@ -5,30 +5,39 @@ const findSum = function(array) {
 
   
   const findFrequency = function(array) {
-  	let mostFrequent = array[0]
+  	 	let mostFrequent = array[0]
     let leastFrequent = array[0]
-		let currentCount = 0
-    let highestFrequencyCount = 1
-    let leastFrequencyCount = 1
-    for(let i = 0; i < array.length; i++){
-
-    	for(let j = 0; j < array.length; j++){
-      	
-        	if(array[i] === array[j]){
-          	currentCount += 1
-          }
-          if(currentCount > highestFrequencyCount){
-          	highestFrequencyCount = currentCount
-            mostFrequent = array[i]
-          }
-         if(currentCount <= leastFrequencyCount){
-      	leastFrequencyCount = currentCount
-        leastFrequent = array[i]
+		let currentCount = 1
+    let highestFrequency = 0
+    let lowestFrequency = array.length 
+    let currentCountLow = 1
+    const sortedArray = array.sort((a, b) => a.localeCompare(b))
+    for(let i = 1; i < sortedArray.length; i++){
+    	const curr = sortedArray[i]
+      	if(curr === sortedArray[i - 1]){
+        	currentCount++
+        }
+        else{
+        	currentCount = 1
+        }
+			if(currentCount > highestFrequency){
+      	highestFrequency = currentCount
+        mostFrequent = curr
       }
-        
+    	
+    }
+    for(let i = 1; i < sortedArray.length; i++){
+    const curr = sortedArray[i]
+    	if(curr === sortedArray[i - 1]){
+      	currentCountLow++
       }
-      currentCount = 0
-
+      else{
+      	if(currentCountLow < lowestFrequency){
+        	lowestFrequency = currentCountLow
+          leastFrequent = sortedArray[i - 1]
+        }
+      	currentCountLow = 1
+      }
     }
     return { most: mostFrequent, least: leastFrequent}
   };
